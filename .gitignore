@@ -10,3 +10,6 @@ venv/
 
 # Generated output at repo root (examples/sample-output/blueprint is committed)
 /blueprint/
+
+# The sample project deliberately contains a fake .env (analyzer test input)
+!examples/sample-dotnet-mvc/.env

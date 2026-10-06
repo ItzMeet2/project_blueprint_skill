@@ -1,0 +1,10 @@
+@model BookShelf.Models.Book
+@{
+    ViewData["Title"] = Model.Title;
+}
+<h1>@Model.Title</h1>
+<p>by @Model.Author (ISBN @Model.Isbn)</p>
+<p>Status: @Model.Status</p>
+<form method="post" action="/books/@Model.Id/delete">
+    <button type="submit">Delete</button>
+</form>

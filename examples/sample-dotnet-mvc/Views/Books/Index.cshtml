@@ -1,0 +1,17 @@
+@model List<BookShelf.Models.Book>
+@{
+    ViewData["Title"] = "My Books";
+}
+<h1>My Books</h1>
+<a href="/books/create">Add a book</a>
+<table>
+    <tr><th>Title</th><th>Author</th><th>Status</th></tr>
+    @foreach (var book in Model)
+    {
+        <tr>
+            <td><a href="/books/@book.Id">@book.Title</a></td>
+            <td>@book.Author</td>
+            <td>@book.Status</td>
+        </tr>
+    }
+</table>

@@ -1,0 +1,10 @@
+@{
+    ViewData["Title"] = "Add a book";
+}
+<h1>Add a book</h1>
+<form method="post" action="/books/create">
+    <label>Title <input name="Title" /></label>
+    <label>Author <input name="Author" /></label>
+    <label>ISBN <input name="Isbn" /></label>
+    <button type="submit">Save</button>
+</form>
