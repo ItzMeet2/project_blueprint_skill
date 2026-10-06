@@ -1,0 +1,177 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/ItzMeet2/project_blueprint_skill/project-blueprint/assets/schemas/profile.schema.json",
+  "title": "Project Profile",
+  "description": "Core data contract read by every project-blueprint artifact (blueprint/profile.json).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "project", "stack", "structure", "confidence"],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "project": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "summary", "type", "status"],
+      "properties": {
+        "name": {"type": "string", "minLength": 1},
+        "summary": {"type": "string", "minLength": 1},
+        "type": {"enum": ["web", "mobile", "desktop", "game", "api", "library", "cli", "other"]},
+        "status": {"enum": ["idea", "prototype", "in-progress", "production"]}
+      }
+    },
+    "stack": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["languages"],
+      "properties": {
+        "languages": {"$ref": "#/$defs/stringList"},
+        "frameworks": {"$ref": "#/$defs/stringList"},
+        "databases": {"$ref": "#/$defs/stringList"},
+        "infra": {"$ref": "#/$defs/stringList"},
+        "package_files": {"$ref": "#/$defs/stringList"}
+      }
+    },
+    "structure": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["root"],
+      "properties": {
+        "root": {"type": "string"},
+        "key_dirs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["path", "role"],
+            "properties": {
+              "path": {"type": "string"},
+              "role": {"type": "string"},
+              "inferred": {"type": "boolean"}
+            }
+          }
+        },
+        "entry_points": {"$ref": "#/$defs/stringList"}
+      }
+    },
+    "actors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name"],
+        "properties": {
+          "name": {"type": "string", "minLength": 1},
+          "goals": {"$ref": "#/$defs/stringList"},
+          "inferred": {"type": "boolean"}
+        }
+      }
+    },
+    "screens": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "name"],
+        "properties": {
+          "id": {"$ref": "#/$defs/id"},
+          "name": {"type": "string", "minLength": 1},
+          "source": {"type": "string"},
+          "purpose": {"type": "string"},
+          "inferred": {"type": "boolean"}
+        }
+      }
+    },
+    "routes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["method", "path"],
+        "properties": {
+          "method": {"enum": ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD", "OPTIONS", "ANY"]},
+          "path": {"type": "string", "minLength": 1},
+          "handler": {"type": "string"},
+          "inferred": {"type": "boolean"}
+        }
+      }
+    },
+    "entities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name"],
+        "properties": {
+          "name": {"type": "string", "minLength": 1},
+          "fields": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["name", "type"],
+              "properties": {
+                "name": {"type": "string", "minLength": 1},
+                "type": {"type": "string", "minLength": 1}
+              }
+            }
+          },
+          "relations": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["to", "kind"],
+              "properties": {
+                "to": {"type": "string", "minLength": 1},
+                "kind": {"type": "string", "minLength": 1}
+              }
+            }
+          },
+          "inferred": {"type": "boolean"}
+        }
+      }
+    },
+    "integrations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name"],
+        "properties": {
+          "name": {"type": "string", "minLength": 1},
+          "purpose": {"type": "string"},
+          "inferred": {"type": "boolean"}
+        }
+      }
+    },
+    "flows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "name", "steps"],
+        "properties": {
+          "id": {"$ref": "#/$defs/id"},
+          "name": {"type": "string", "minLength": 1},
+          "steps": {"$ref": "#/$defs/stringList"},
+          "inferred": {"type": "boolean"}
+        }
+      }
+    },
+    "risks": {"$ref": "#/$defs/stringList"},
+    "assumptions": {"$ref": "#/$defs/stringList"},
+    "confidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["overall"],
+      "properties": {
+        "overall": {"enum": ["high", "medium", "low"]},
+        "notes": {"type": "string"}
+      }
+    }
+  },
+  "$defs": {
+    "id": {"type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"},
+    "stringList": {"type": "array", "items": {"type": "string"}}
+  }
+}

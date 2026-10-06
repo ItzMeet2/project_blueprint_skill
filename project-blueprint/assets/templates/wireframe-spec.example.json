@@ -1,0 +1,47 @@
+{
+  "project": "Example App",
+  "viewport_presets": {"mobile": [390, 844], "desktop": [1280, 800]},
+  "screens": [
+    {
+      "id": "login",
+      "name": "Login",
+      "viewport": "mobile",
+      "notes": "Shown to unauthenticated users",
+      "elements": [
+        {"type": "header", "text": "Welcome back"},
+        {"type": "input", "label": "Email", "placeholder": "you@mail.com"},
+        {"type": "input", "label": "Password", "secret": true},
+        {"type": "button", "text": "Sign in", "primary": true},
+        {"type": "link", "text": "Forgot password?"}
+      ],
+      "navigates_to": [{"element": "Sign in", "screen": "dashboard"}]
+    },
+    {
+      "id": "dashboard",
+      "name": "Dashboard",
+      "viewport": "mobile",
+      "notes": "Landing screen after sign in",
+      "elements": [
+        {"type": "header", "text": "Your week"},
+        {"type": "card", "title": "Tasks due", "text": "3 tasks due today"},
+        {"type": "list", "items": ["Review report", "Call supplier", "Update roadmap"]},
+        {"type": "button", "text": "Open settings"}
+      ],
+      "navigates_to": [{"element": "Open settings", "screen": "settings"}]
+    },
+    {
+      "id": "settings",
+      "name": "Settings",
+      "viewport": "mobile",
+      "notes": "Account and notification preferences",
+      "elements": [
+        {"type": "header", "text": "Settings"},
+        {"type": "toggle", "label": "Email notifications", "on": true},
+        {"type": "select", "label": "Language", "options": ["English", "German"]},
+        {"type": "divider"},
+        {"type": "button", "text": "Sign out", "primary": true}
+      ],
+      "navigates_to": [{"element": "Sign out", "screen": "login"}]
+    }
+  ]
+}

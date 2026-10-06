@@ -1,7 +1,7 @@
 # Progress
 
 - [x] Step 0: scaffold
-- [ ] Step 1: schemas
+- [x] Step 1: schemas
 - [ ] Step 2: templates
 - [ ] Step 3: sample project
 - [ ] Step 4A: analyzer core

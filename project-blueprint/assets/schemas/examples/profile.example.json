@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.0",
+  "project": {
+    "name": "BookShelf",
+    "summary": "A personal library tracker where readers record the books they own and review them.",
+    "type": "web",
+    "status": "prototype"
+  },
+  "stack": {
+    "languages": ["C#"],
+    "frameworks": ["ASP.NET Core MVC"],
+    "databases": ["SQL Server"],
+    "infra": [],
+    "package_files": ["BookShelf.csproj"]
+  },
+  "structure": {
+    "root": "BookShelf/",
+    "key_dirs": [
+      {"path": "Controllers/", "role": "HTTP controllers"},
+      {"path": "Models/", "role": "Entity classes"},
+      {"path": "Views/", "role": "Razor views"},
+      {"path": "Data/", "role": "EF Core DbContext", "inferred": true}
+    ],
+    "entry_points": ["Program.cs"]
+  },
+  "actors": [
+    {"name": "Reader", "goals": ["track books", "write reviews"], "inferred": true}
+  ],
+  "screens": [
+    {"id": "account-login", "name": "Login", "source": "Views/Account/Login.cshtml", "purpose": "Sign in with email and password"},
+    {"id": "books-index", "name": "My Books", "source": "Views/Books/Index.cshtml", "purpose": "List the signed-in reader's books"}
+  ],
+  "routes": [
+    {"method": "GET", "path": "/account/login", "handler": "AccountController.Login"},
+    {"method": "POST", "path": "/account/login", "handler": "AccountController.Login"},
+    {"method": "GET", "path": "/books", "handler": "BooksController.Index"}
+  ],
+  "entities": [
+    {
+      "name": "Book",
+      "fields": [{"name": "Id", "type": "int"}, {"name": "Title", "type": "string"}, {"name": "UserId", "type": "int"}],
+      "relations": [{"to": "User", "kind": "*..1"}, {"to": "Review", "kind": "1..*"}]
+    },
+    {
+      "name": "User",
+      "fields": [{"name": "Id", "type": "int"}, {"name": "Email", "type": "string"}],
+      "relations": [{"to": "Book", "kind": "1..*"}]
+    }
+  ],
+  "integrations": [],
+  "flows": [
+    {"id": "sign-in", "name": "Sign in", "steps": ["Open login page", "Submit credentials", "Land on My Books"], "inferred": true}
+  ],
+  "risks": ["No automated tests were found."],
+  "assumptions": ["ASSUMPTION: Each book belongs to exactly one user."],
+  "confidence": {"overall": "medium", "notes": "Derived from code only; no README or docs were available."}
+}
