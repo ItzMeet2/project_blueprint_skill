@@ -6,7 +6,7 @@
 - [x] Step 3: sample project
 - [x] Step 4A: analyzer core
 - [x] Step 4B: analyzer extractors
-- [ ] Step 5A: wireframe core
+- [x] Step 5A: wireframe core
 - [ ] Step 5B: wireframe full
 - [ ] Step 6: mermaid validator
 - [ ] Step 7: sprint exporter
