@@ -102,7 +102,7 @@ def test_text_is_xml_escaped(tmp_path):
     assert root.find(SVG_NS + "title").text == "S & <T>"
 
 
-def test_supported_and_placeholder_elements(tmp_path):
+def test_core_elements_render_without_placeholders(tmp_path):
     spec = {"project": "P", "screens": [{
         "id": "all", "name": "All", "elements": [
             {"type": "header", "text": "H"}, {"type": "text", "text": "T"},
@@ -114,7 +114,7 @@ def test_supported_and_placeholder_elements(tmp_path):
         ]}]}
     assert render(write_spec(tmp_path, spec), tmp_path / "out").returncode == 0
     raw = (tmp_path / "out" / "all.svg").read_text(encoding="utf-8")
-    assert ">[table]<" in raw and ">[row]<" in raw
+    assert "[table]" not in raw and "[row]" not in raw
     ET.fromstring(raw)
 
 
