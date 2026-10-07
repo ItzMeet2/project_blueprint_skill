@@ -15,6 +15,6 @@
 - [x] Step 10: sample output
 - [x] Step 11: evals
 - [x] Step 12: docs
-- [ ] Step 13: CI
+- [x] Step 13: CI
 - [ ] Step 14: audit
 - [ ] Step 15: publish

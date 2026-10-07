@@ -1,0 +1,42 @@
+name: validate
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install development dependencies
+        run: python -m pip install -r requirements-dev.txt
+
+      - name: Run tests
+        run: pytest -q
+
+      - name: Validate Mermaid diagrams
+        run: python project-blueprint/scripts/validate_mermaid.py project-blueprint docs examples README.md
+
+      - name: Run the analyzer on the sample project
+        run: |
+          python project-blueprint/scripts/analyze_project.py examples/sample-dotnet-mvc --out "$RUNNER_TEMP/analysis"
+          test -f "$RUNNER_TEMP/analysis/analysis.raw.json"
+          if grep -r "do-not-read-me" "$RUNNER_TEMP/analysis"; then
+            echo "Secret content leaked into the analysis output" >&2
+            exit 1
+          fi
