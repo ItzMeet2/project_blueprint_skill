@@ -12,7 +12,7 @@
 - [x] Step 7: sprint exporter
 - [x] Step 8A-8C: references
 - [x] Step 9: SKILL.md
-- [ ] Step 10: sample output
+- [x] Step 10: sample output
 - [ ] Step 11: evals
 - [ ] Step 12: docs
 - [ ] Step 13: CI

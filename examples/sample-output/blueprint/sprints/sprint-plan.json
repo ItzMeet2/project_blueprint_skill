@@ -1,0 +1,191 @@
+{
+  "source": "sprint-plan.md",
+  "sprints": [
+    {
+      "sprint": 1,
+      "capacity": 20,
+      "planned_points": 18,
+      "over_capacity": false,
+      "story_count": 5,
+      "stories": [
+        {
+          "id": "US-001",
+          "epic": "Auth",
+          "story": "As a visitor, I can create an account",
+          "points": 3,
+          "priority": "Must",
+          "depends_on": [],
+          "sprint": 1,
+          "acceptance_criteria": "Given a new email and password, when I register, then my account exists and I land on Login"
+        },
+        {
+          "id": "US-002",
+          "epic": "Auth",
+          "story": "As a reader, I can sign in",
+          "points": 3,
+          "priority": "Must",
+          "depends_on": [
+            "US-001"
+          ],
+          "sprint": 1,
+          "acceptance_criteria": "Given a wrong password, when I sign in, then I stay on Login with an error"
+        },
+        {
+          "id": "US-003",
+          "epic": "Auth",
+          "story": "As a reader, my book pages are visible only when I am signed in",
+          "points": 2,
+          "priority": "Must",
+          "depends_on": [
+            "US-002"
+          ],
+          "sprint": 1,
+          "acceptance_criteria": "Given I am signed out, when I open /books, then I am sent to Login"
+        },
+        {
+          "id": "US-004",
+          "epic": "Books",
+          "story": "As a reader, I can see my books",
+          "points": 5,
+          "priority": "Must",
+          "depends_on": [
+            "US-002",
+            "US-003"
+          ],
+          "sprint": 1,
+          "acceptance_criteria": "Given another reader owns a book, when I open My Books, then it is not listed"
+        },
+        {
+          "id": "US-005",
+          "epic": "Books",
+          "story": "As a reader, I can add a book",
+          "points": 5,
+          "priority": "Must",
+          "depends_on": [
+            "US-004"
+          ],
+          "sprint": 1,
+          "acceptance_criteria": "Given a title, author and ISBN, when I save, then the book is listed on My Books"
+        }
+      ]
+    },
+    {
+      "sprint": 2,
+      "capacity": 20,
+      "planned_points": 17,
+      "over_capacity": false,
+      "story_count": 6,
+      "stories": [
+        {
+          "id": "US-006",
+          "epic": "Auth",
+          "story": "As a reader, I can sign out",
+          "points": 1,
+          "priority": "Must",
+          "depends_on": [
+            "US-002"
+          ],
+          "sprint": 2,
+          "acceptance_criteria": "Given I signed out, when I open /books, then I am sent to Login"
+        },
+        {
+          "id": "US-007",
+          "epic": "Books",
+          "story": "As a reader, I can view a book's details",
+          "points": 2,
+          "priority": "Must",
+          "depends_on": [
+            "US-004"
+          ],
+          "sprint": 2,
+          "acceptance_criteria": "Given a book id that does not exist, when I open it, then I see Book not found"
+        },
+        {
+          "id": "US-008",
+          "epic": "Books",
+          "story": "As a reader, I can delete a book",
+          "points": 3,
+          "priority": "Should",
+          "depends_on": [
+            "US-007"
+          ],
+          "sprint": 2,
+          "acceptance_criteria": "Given another reader's book, when I delete it, then nothing is deleted"
+        },
+        {
+          "id": "US-009",
+          "epic": "Books",
+          "story": "As a reader, I see clear empty and error states",
+          "points": 3,
+          "priority": "Should",
+          "depends_on": [
+            "US-004"
+          ],
+          "sprint": 2,
+          "acceptance_criteria": "Given the books cannot load, when I open My Books, then I see an error and a Try again button"
+        },
+        {
+          "id": "US-010",
+          "epic": "Books",
+          "story": "As a reader, I can change a book's reading status",
+          "points": 3,
+          "priority": "Should",
+          "depends_on": [
+            "US-007"
+          ],
+          "sprint": 2,
+          "acceptance_criteria": "Given a status that is not allowed, when I save, then it is not changed"
+        },
+        {
+          "id": "US-011",
+          "epic": "Quality",
+          "story": "As a developer, I have automated tests for sign-in and the book flow",
+          "points": 5,
+          "priority": "Should",
+          "depends_on": [
+            "US-005"
+          ],
+          "sprint": 2,
+          "acceptance_criteria": "Given the test suite, when it runs, then it rejects a wrong password and another reader's book"
+        }
+      ]
+    },
+    {
+      "sprint": 3,
+      "capacity": 20,
+      "planned_points": 8,
+      "over_capacity": false,
+      "story_count": 2,
+      "stories": [
+        {
+          "id": "US-012",
+          "epic": "Reviews",
+          "story": "As a reader, I can rate and review a book",
+          "points": 5,
+          "priority": "Could",
+          "depends_on": [
+            "US-007"
+          ],
+          "sprint": 3,
+          "acceptance_criteria": "Given a rating outside 1 to 5, when I save, then no review is saved and I see an error"
+        },
+        {
+          "id": "US-013",
+          "epic": "Reviews",
+          "story": "As a reader, I can see my reviews on a book",
+          "points": 3,
+          "priority": "Could",
+          "depends_on": [
+            "US-012"
+          ],
+          "sprint": 3,
+          "acceptance_criteria": "Given a book with no reviews, when I open it, then I see No reviews yet"
+        }
+      ]
+    }
+  ],
+  "totals": {
+    "stories": 13,
+    "points": 43
+  }
+}

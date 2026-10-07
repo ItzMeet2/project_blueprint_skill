@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="390" height="844" viewBox="0 0 390 844" font-family="-apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" role="img" aria-label="My Books">
+<title>My Books</title>
+<rect x="0" y="0" width="390" height="844" fill="#ffffff"/>
+<text x="16" y="40" font-size="22" fill="#222222" font-weight="bold">My Books</text>
+<rect x="16" y="64" width="358" height="96" rx="6" fill="none" stroke="#b5b5b5" stroke-width="1"/>
+<rect x="16" y="64" width="358" height="32" rx="6" fill="#f1f1f1" stroke="#b5b5b5" stroke-width="1"/>
+<line x1="135" y1="64" x2="135" y2="160" stroke="#b5b5b5" stroke-width="1"/>
+<line x1="254" y1="64" x2="254" y2="160" stroke="#b5b5b5" stroke-width="1"/>
+<line x1="16" y1="96" x2="374" y2="96" stroke="#b5b5b5" stroke-width="1"/>
+<line x1="16" y1="128" x2="374" y2="128" stroke="#b5b5b5" stroke-width="1"/>
+<text x="24" y="85" font-size="13" fill="#222222" font-weight="bold">Title</text>
+<text x="143" y="85" font-size="13" fill="#222222" font-weight="bold">Author</text>
+<text x="262" y="85" font-size="13" fill="#222222" font-weight="bold">Status</text>
+<text x="24" y="117" font-size="13" fill="#222222">Dune</text>
+<text x="143" y="117" font-size="13" fill="#222222">Frank Herbert</text>
+<text x="262" y="117" font-size="13" fill="#222222">Reading</text>
+<text x="24" y="149" font-size="13" fill="#222222">Emma</text>
+<text x="143" y="149" font-size="13" fill="#222222">Jane Austen</text>
+<text x="262" y="149" font-size="13" fill="#222222">To read</text>
+<rect x="16" y="172" width="358" height="44" rx="6" fill="#333333" stroke="#333333" stroke-width="1"/>
+<text x="195" y="200" font-size="15" fill="#ffffff" font-weight="bold" text-anchor="middle">Add a book</text>
+<text x="16" y="244" font-size="14" fill="#222222" text-decoration="underline">Sign out</text>
+</svg>

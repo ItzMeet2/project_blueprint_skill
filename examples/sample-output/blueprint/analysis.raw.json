@@ -1,0 +1,251 @@
+{
+  "scanned_root": "sample-dotnet-mvc",
+  "file_stats": {
+    "files_scanned": 18,
+    "skipped_large_files": 0,
+    "by_extension": {
+      ".cs": 8,
+      ".cshtml": 7,
+      ".csproj": 1,
+      ".json": 1,
+      ".md": 1
+    }
+  },
+  "languages": {
+    "C#": 8,
+    "Razor": 7
+  },
+  "stack": [
+    {
+      "marker": "BookShelf.csproj",
+      "technology": ".NET project"
+    }
+  ],
+  "key_dirs": [
+    {
+      "path": "Controllers/",
+      "role": "HTTP controllers",
+      "inferred": true
+    },
+    {
+      "path": "Data/",
+      "role": "Data access (DbContext, repositories)",
+      "inferred": true
+    },
+    {
+      "path": "Models/",
+      "role": "Data models / entities",
+      "inferred": true
+    },
+    {
+      "path": "Views/",
+      "role": "UI views / templates",
+      "inferred": true
+    }
+  ],
+  "entry_points": [
+    "Program.cs"
+  ],
+  "sensitive_files_present": [
+    ".env"
+  ],
+  "truncated": false,
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/account/login",
+      "handler": "AccountController.Login",
+      "inferred": true
+    },
+    {
+      "method": "POST",
+      "path": "/account/login",
+      "handler": "AccountController.Login",
+      "inferred": true
+    },
+    {
+      "method": "GET",
+      "path": "/account/register",
+      "handler": "AccountController.Register",
+      "inferred": true
+    },
+    {
+      "method": "POST",
+      "path": "/account/register",
+      "handler": "AccountController.Register",
+      "inferred": true
+    },
+    {
+      "method": "POST",
+      "path": "/account/logout",
+      "handler": "AccountController.Logout",
+      "inferred": true
+    },
+    {
+      "method": "GET",
+      "path": "/books",
+      "handler": "BooksController.Index",
+      "inferred": true
+    },
+    {
+      "method": "GET",
+      "path": "/books/{id}",
+      "handler": "BooksController.Details",
+      "inferred": true
+    },
+    {
+      "method": "GET",
+      "path": "/books/create",
+      "handler": "BooksController.Create",
+      "inferred": true
+    },
+    {
+      "method": "POST",
+      "path": "/books/create",
+      "handler": "BooksController.Create",
+      "inferred": true
+    },
+    {
+      "method": "POST",
+      "path": "/books/{id}/delete",
+      "handler": "BooksController.Delete",
+      "inferred": true
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "handler": "HomeController.Index",
+      "inferred": true
+    }
+  ],
+  "screens": [
+    {
+      "id": "account-login",
+      "name": "Account Login",
+      "source": "Views/Account/Login.cshtml",
+      "inferred": true
+    },
+    {
+      "id": "account-register",
+      "name": "Account Register",
+      "source": "Views/Account/Register.cshtml",
+      "inferred": true
+    },
+    {
+      "id": "books-create",
+      "name": "Books Create",
+      "source": "Views/Books/Create.cshtml",
+      "inferred": true
+    },
+    {
+      "id": "books-details",
+      "name": "Books Details",
+      "source": "Views/Books/Details.cshtml",
+      "inferred": true
+    },
+    {
+      "id": "books-index",
+      "name": "Books",
+      "source": "Views/Books/Index.cshtml",
+      "inferred": true
+    },
+    {
+      "id": "home-index",
+      "name": "Home",
+      "source": "Views/Home/Index.cshtml",
+      "inferred": true
+    },
+    {
+      "id": "shared-layout",
+      "name": "Shared Layout",
+      "source": "Views/Shared/_Layout.cshtml",
+      "inferred": true,
+      "is_layout": true
+    }
+  ],
+  "entities": [
+    {
+      "name": "Book",
+      "fields": [
+        {
+          "name": "Id",
+          "type": "int"
+        },
+        {
+          "name": "Title",
+          "type": "string"
+        },
+        {
+          "name": "Author",
+          "type": "string"
+        },
+        {
+          "name": "Isbn",
+          "type": "string"
+        },
+        {
+          "name": "Status",
+          "type": "string"
+        },
+        {
+          "name": "UserId",
+          "type": "int"
+        }
+      ],
+      "inferred": true,
+      "relations": [
+        {
+          "to": "User",
+          "kind": "*..1"
+        }
+      ]
+    },
+    {
+      "name": "Review",
+      "fields": [
+        {
+          "name": "Id",
+          "type": "int"
+        },
+        {
+          "name": "BookId",
+          "type": "int"
+        },
+        {
+          "name": "Rating",
+          "type": "int"
+        },
+        {
+          "name": "Text",
+          "type": "string"
+        }
+      ],
+      "inferred": true,
+      "relations": [
+        {
+          "to": "Book",
+          "kind": "*..1"
+        }
+      ]
+    },
+    {
+      "name": "User",
+      "fields": [
+        {
+          "name": "Id",
+          "type": "int"
+        },
+        {
+          "name": "Email",
+          "type": "string"
+        },
+        {
+          "name": "PasswordHash",
+          "type": "string"
+        }
+      ],
+      "inferred": true
+    }
+  ],
+  "warnings": []
+}

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="390" height="844" viewBox="0 0 390 844" font-family="-apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" role="img" aria-label="Login">
+<title>Login</title>
+<rect x="0" y="0" width="390" height="844" fill="#ffffff"/>
+<text x="16" y="40" font-size="22" fill="#222222" font-weight="bold">Sign in</text>
+<text x="16" y="76" font-size="12" fill="#8a8a8a">Email</text>
+<rect x="16" y="84" width="358" height="40" rx="6" fill="#f1f1f1" stroke="#b5b5b5" stroke-width="1"/>
+<text x="28" y="109" font-size="14" fill="#8a8a8a">you@mail.com</text>
+<text x="16" y="148" font-size="12" fill="#8a8a8a">Password</text>
+<rect x="16" y="156" width="358" height="40" rx="6" fill="#f1f1f1" stroke="#b5b5b5" stroke-width="1"/>
+<text x="28" y="181" font-size="14" fill="#8a8a8a">••••••••</text>
+<rect x="16" y="208" width="358" height="44" rx="6" fill="#333333" stroke="#333333" stroke-width="1"/>
+<text x="195" y="236" font-size="15" fill="#ffffff" font-weight="bold" text-anchor="middle">Sign in</text>
+<text x="16" y="280" font-size="14" fill="#222222" text-decoration="underline">Need an account? Register</text>
+</svg>

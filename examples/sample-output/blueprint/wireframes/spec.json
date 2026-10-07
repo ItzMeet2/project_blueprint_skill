@@ -1,0 +1,151 @@
+{
+  "project": "BookShelf",
+  "screens": [
+    {
+      "id": "home-index",
+      "name": "Home",
+      "viewport": "mobile",
+      "notes": "Landing page for visitors (Views/Home/Index.cshtml)",
+      "elements": [
+        {"type": "header", "text": "BookShelf"},
+        {"type": "text", "text": "Keep track of the books you own and what you think of them."},
+        {"type": "button", "text": "Sign in", "primary": true},
+        {"type": "link", "text": "Create account"}
+      ],
+      "navigates_to": [
+        {"element": "Sign in", "screen": "account-login"},
+        {"element": "Create account", "screen": "account-register"}
+      ]
+    },
+    {
+      "id": "account-login",
+      "name": "Login",
+      "viewport": "mobile",
+      "notes": "Sign in with email and password (Views/Account/Login.cshtml)",
+      "elements": [
+        {"type": "header", "text": "Sign in"},
+        {"type": "input", "label": "Email", "placeholder": "you@mail.com"},
+        {"type": "input", "label": "Password", "secret": true},
+        {"type": "button", "text": "Sign in", "primary": true},
+        {"type": "link", "text": "Need an account? Register"}
+      ],
+      "navigates_to": [
+        {"element": "Sign in", "screen": "books-index"},
+        {"element": "Need an account? Register", "screen": "account-register"}
+      ]
+    },
+    {
+      "id": "account-register",
+      "name": "Register",
+      "viewport": "mobile",
+      "notes": "Create an account (Views/Account/Register.cshtml)",
+      "elements": [
+        {"type": "header", "text": "Create account"},
+        {"type": "input", "label": "Email", "placeholder": "you@mail.com"},
+        {"type": "input", "label": "Password", "secret": true},
+        {"type": "button", "text": "Register", "primary": true}
+      ],
+      "navigates_to": [
+        {"element": "Register", "screen": "account-login"}
+      ]
+    },
+    {
+      "id": "books-index",
+      "name": "My Books",
+      "viewport": "mobile",
+      "notes": "Lists the books (Views/Books/Index.cshtml). The two table rows are illustrative sample content, not data from the code.",
+      "elements": [
+        {"type": "header", "text": "My Books"},
+        {"type": "table", "columns": ["Title", "Author", "Status"],
+         "rows": [["Dune", "Frank Herbert", "Reading"], ["Emma", "Jane Austen", "To read"]]},
+        {"type": "button", "text": "Add a book", "primary": true},
+        {"type": "link", "text": "Sign out"}
+      ],
+      "navigates_to": [
+        {"element": "Dune", "screen": "books-details"},
+        {"element": "Add a book", "screen": "books-create"},
+        {"element": "Sign out", "screen": "home-index"},
+        {"element": "No books yet", "screen": "books-index--empty"},
+        {"element": "Could not load books", "screen": "books-index--error"}
+      ]
+    },
+    {
+      "id": "books-index--empty",
+      "name": "My Books (empty)",
+      "viewport": "mobile",
+      "notes": "State variant: the reader has no books yet. Proposed state; the current view renders an empty table.",
+      "elements": [
+        {"type": "header", "text": "My Books"},
+        {"type": "text", "text": "You have not added any books yet."},
+        {"type": "button", "text": "Add your first book", "primary": true},
+        {"type": "link", "text": "Sign out"}
+      ],
+      "navigates_to": [
+        {"element": "Add your first book", "screen": "books-create"},
+        {"element": "Sign out", "screen": "home-index"}
+      ]
+    },
+    {
+      "id": "books-index--error",
+      "name": "My Books (error)",
+      "viewport": "mobile",
+      "notes": "State variant: loading the books failed. Proposed state; the code has no error handling.",
+      "elements": [
+        {"type": "header", "text": "My Books"},
+        {"type": "card", "title": "Something went wrong", "text": "We could not load your books."},
+        {"type": "button", "text": "Try again", "primary": true}
+      ],
+      "navigates_to": [
+        {"element": "Try again", "screen": "books-index"}
+      ]
+    },
+    {
+      "id": "books-details",
+      "name": "Book Details",
+      "viewport": "mobile",
+      "notes": "Shows one book (Views/Books/Details.cshtml). Title, author and ISBN are sample content.",
+      "elements": [
+        {"type": "header", "text": "Dune"},
+        {"type": "text", "text": "by Frank Herbert (ISBN 9780441013593)"},
+        {"type": "text", "text": "Status: Reading"},
+        {"type": "button", "text": "Delete", "primary": true},
+        {"type": "link", "text": "Back to My Books"}
+      ],
+      "navigates_to": [
+        {"element": "Delete", "screen": "books-index"},
+        {"element": "Back to My Books", "screen": "books-index"},
+        {"element": "Book not found", "screen": "books-details--error"}
+      ]
+    },
+    {
+      "id": "books-details--error",
+      "name": "Book Details (error)",
+      "viewport": "mobile",
+      "notes": "State variant: the requested book does not exist. Proposed state; the current code would fail on a missing book.",
+      "elements": [
+        {"type": "header", "text": "Book not found"},
+        {"type": "text", "text": "This book does not exist or was removed."},
+        {"type": "button", "text": "Back to My Books", "primary": true}
+      ],
+      "navigates_to": [
+        {"element": "Back to My Books", "screen": "books-index"}
+      ]
+    },
+    {
+      "id": "books-create",
+      "name": "Add a Book",
+      "viewport": "mobile",
+      "notes": "Form to add a book (Views/Books/Create.cshtml)",
+      "elements": [
+        {"type": "header", "text": "Add a book"},
+        {"type": "input", "label": "Title"},
+        {"type": "input", "label": "Author"},
+        {"type": "input", "label": "ISBN"},
+        {"type": "button", "text": "Save", "primary": true}
+      ],
+      "navigates_to": [
+        {"element": "Save", "screen": "books-index"}
+      ]
+    }
+  ]
+}

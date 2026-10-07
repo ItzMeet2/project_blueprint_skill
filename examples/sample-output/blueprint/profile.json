@@ -1,0 +1,318 @@
+{
+  "schema_version": "1.0",
+  "project": {
+    "name": "BookShelf",
+    "summary": "A personal library tracker where readers register, sign in, and keep a list of the books they own with title, author, ISBN and reading status.",
+    "type": "web",
+    "status": "prototype"
+  },
+  "stack": {
+    "languages": [
+      "C#"
+    ],
+    "frameworks": [
+      "ASP.NET Core MVC",
+      "Razor views",
+      "Entity Framework Core"
+    ],
+    "databases": [
+      "SQL Server"
+    ],
+    "infra": [],
+    "package_files": [
+      "BookShelf.csproj"
+    ]
+  },
+  "structure": {
+    "root": "sample-dotnet-mvc/",
+    "key_dirs": [
+      {
+        "path": "Controllers/",
+        "role": "HTTP controllers",
+        "inferred": true
+      },
+      {
+        "path": "Data/",
+        "role": "Data access (DbContext, repositories)",
+        "inferred": true
+      },
+      {
+        "path": "Models/",
+        "role": "Data models / entities",
+        "inferred": true
+      },
+      {
+        "path": "Views/",
+        "role": "UI views / templates",
+        "inferred": true
+      }
+    ],
+    "entry_points": [
+      "Program.cs"
+    ]
+  },
+  "actors": [
+    {
+      "name": "Reader",
+      "goals": [
+        "keep a list of owned books",
+        "track reading status",
+        "review books"
+      ],
+      "inferred": true
+    }
+  ],
+  "screens": [
+    {
+      "id": "account-login",
+      "name": "Login",
+      "source": "Views/Account/Login.cshtml",
+      "purpose": "Sign in with email and password"
+    },
+    {
+      "id": "account-register",
+      "name": "Register",
+      "source": "Views/Account/Register.cshtml",
+      "purpose": "Create an account with email and password"
+    },
+    {
+      "id": "books-create",
+      "name": "Add a Book",
+      "source": "Views/Books/Create.cshtml",
+      "purpose": "Form to add a book with title, author and ISBN"
+    },
+    {
+      "id": "books-details",
+      "name": "Book Details",
+      "source": "Views/Books/Details.cshtml",
+      "purpose": "Show one book (title, author, ISBN, status) with a delete action"
+    },
+    {
+      "id": "books-index",
+      "name": "My Books",
+      "source": "Views/Books/Index.cshtml",
+      "purpose": "List the books with title, author and status; link to add a book"
+    },
+    {
+      "id": "home-index",
+      "name": "Home",
+      "source": "Views/Home/Index.cshtml",
+      "purpose": "Landing page with links to sign in and create an account"
+    }
+  ],
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/account/login",
+      "handler": "AccountController.Login"
+    },
+    {
+      "method": "POST",
+      "path": "/account/login",
+      "handler": "AccountController.Login"
+    },
+    {
+      "method": "GET",
+      "path": "/account/register",
+      "handler": "AccountController.Register"
+    },
+    {
+      "method": "POST",
+      "path": "/account/register",
+      "handler": "AccountController.Register"
+    },
+    {
+      "method": "POST",
+      "path": "/account/logout",
+      "handler": "AccountController.Logout"
+    },
+    {
+      "method": "GET",
+      "path": "/books",
+      "handler": "BooksController.Index"
+    },
+    {
+      "method": "GET",
+      "path": "/books/{id}",
+      "handler": "BooksController.Details"
+    },
+    {
+      "method": "GET",
+      "path": "/books/create",
+      "handler": "BooksController.Create"
+    },
+    {
+      "method": "POST",
+      "path": "/books/create",
+      "handler": "BooksController.Create"
+    },
+    {
+      "method": "POST",
+      "path": "/books/{id}/delete",
+      "handler": "BooksController.Delete"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "handler": "HomeController.Index"
+    }
+  ],
+  "entities": [
+    {
+      "name": "Book",
+      "fields": [
+        {
+          "name": "Id",
+          "type": "int"
+        },
+        {
+          "name": "Title",
+          "type": "string"
+        },
+        {
+          "name": "Author",
+          "type": "string"
+        },
+        {
+          "name": "Isbn",
+          "type": "string"
+        },
+        {
+          "name": "Status",
+          "type": "string"
+        },
+        {
+          "name": "UserId",
+          "type": "int"
+        }
+      ],
+      "inferred": true,
+      "relations": [
+        {
+          "to": "User",
+          "kind": "*..1"
+        },
+        {
+          "to": "Review",
+          "kind": "1..*"
+        }
+      ]
+    },
+    {
+      "name": "Review",
+      "fields": [
+        {
+          "name": "Id",
+          "type": "int"
+        },
+        {
+          "name": "BookId",
+          "type": "int"
+        },
+        {
+          "name": "Rating",
+          "type": "int"
+        },
+        {
+          "name": "Text",
+          "type": "string"
+        }
+      ],
+      "inferred": true,
+      "relations": [
+        {
+          "to": "Book",
+          "kind": "*..1"
+        }
+      ]
+    },
+    {
+      "name": "User",
+      "fields": [
+        {
+          "name": "Id",
+          "type": "int"
+        },
+        {
+          "name": "Email",
+          "type": "string"
+        },
+        {
+          "name": "PasswordHash",
+          "type": "string"
+        }
+      ],
+      "relations": [
+        {
+          "to": "Book",
+          "kind": "1..*"
+        }
+      ],
+      "inferred": true
+    }
+  ],
+  "integrations": [],
+  "flows": [
+    {
+      "id": "register",
+      "name": "Register",
+      "steps": [
+        "Open the register page",
+        "Submit email and password",
+        "Redirect to the login page"
+      ],
+      "inferred": true
+    },
+    {
+      "id": "sign-in",
+      "name": "Sign in",
+      "steps": [
+        "Open the login page",
+        "Submit email and password",
+        "Redirect to My Books"
+      ],
+      "inferred": true
+    },
+    {
+      "id": "add-book",
+      "name": "Add a book",
+      "steps": [
+        "Open My Books",
+        "Choose Add a book",
+        "Submit title, author and ISBN",
+        "Redirect to My Books"
+      ],
+      "inferred": true
+    },
+    {
+      "id": "delete-book",
+      "name": "Delete a book",
+      "steps": [
+        "Open My Books",
+        "Open a book",
+        "Choose Delete",
+        "Redirect to My Books"
+      ],
+      "inferred": true
+    }
+  ],
+  "risks": [
+    "Sign-in does not verify credentials: the login handler contains a TODO and always redirects to My Books.",
+    "Registration does not create a user: the register handler only redirects to the login page.",
+    "No [Authorize] attributes were found on the controllers, so book pages are not protected.",
+    "Book queries are not scoped to a user although Book.UserId exists, so every reader would see every book.",
+    "Review has an entity and a table but no controller, route or view.",
+    "No automated tests were found."
+  ],
+  "assumptions": [
+    "ASSUMPTION: Reader is the only actor; no admin or other role appears in the code.",
+    "ASSUMPTION: Book.UserId references User.Id and Review.BookId references Book.Id (naming convention only; no navigation properties or relationship configuration were found).",
+    "ASSUMPTION: Book.Status takes values such as To read, Reading and Finished; the code only shows the default 'To read'.",
+    "ASSUMPTION: Flow steps are derived from controller redirects and the views read, not from running the app.",
+    "ASSUMPTION: Screen purposes are inferred from view names and controller actions."
+  ],
+  "confidence": {
+    "overall": "medium",
+    "notes": "Derived from code only; the README is three lines. All controllers, models and the DbContext were read. Razor views other than Books/Index were not read. The scan was complete (not truncated, no warnings)."
+  }
+}
