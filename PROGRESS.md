@@ -9,7 +9,7 @@
 - [x] Step 5A: wireframe core
 - [x] Step 5B: wireframe full
 - [x] Step 6: mermaid validator
-- [ ] Step 7: sprint exporter
+- [x] Step 7: sprint exporter
 - [ ] Step 8A-8C: references
 - [ ] Step 9: SKILL.md
 - [ ] Step 10: sample output

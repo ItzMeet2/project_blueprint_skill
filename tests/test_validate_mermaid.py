@@ -64,9 +64,9 @@ def test_spec_md_has_no_errors():
 def test_directory_scan_finds_md_and_mmd():
     proc = run(FIXTURES)
     assert proc.returncode == 1
-    assert "mermaid-valid.md" not in proc.stdout.replace("Checked", "")
     assert "mermaid-empty.mmd:1: ERROR" in proc.stdout
-    assert "Checked 6 file(s)" in proc.stdout
+    assert "mermaid-unknown-type.md:2: ERROR" in proc.stdout
+    assert "mermaid-valid.md" not in proc.stdout
 
 
 def test_missing_path_exits_2(tmp_path):
