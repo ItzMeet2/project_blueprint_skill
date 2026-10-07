@@ -1,6 +1,6 @@
 # Audit
 
-Audit of the repository against the checklist in `docs/SPEC.md` section 14, plus extra checks requested for this build. Audited on 2026-10-07 at commit `0a89c6e` (Step 13) with Python 3.13 on Windows 11. Each row records what was actually run or read. Statuses are PASS, FAIL, or NA. Nothing has been fixed yet: the "Proposed fix" column lists what to do, and fixes are applied only after approval.
+Audit of the repository against the checklist in `docs/SPEC.md` section 14, plus extra checks requested for this build. Audited on 2026-10-07 at commit `0a89c6e` (Step 13) with Python 3.13 on Windows 11. Each row records what was actually run or read. Statuses are PASS, FAIL, or NA. The audit found 12 failures; the fixes the owner approved were applied afterwards, one commit each, and the rows below show the updated status and evidence. Rows 14, 19, and 20 are deferred to Step 15 (publishing), rows 10 and 18 wait for the GitHub CI run, and row 21 was accepted as-is.
 
 ## Results
 
@@ -53,24 +53,27 @@ Audit of the repository against the checklist in `docs/SPEC.md` section 14, plus
 
 | # | Check | Status | Evidence | Proposed fix |
 |---|---|---|---|---|
-| 21 | No file over 500 lines in `project-blueprint/` | FAIL | `scripts/analyze_project.py` 656 lines, `assets/schemas/wireframe.schema.json` 602 lines, `scripts/render_wireframe.py` 572 lines. Every Markdown file is under 250 lines (`SKILL.md` 141) | the 500-line guidance in the spec is for `SKILL.md`, so I recommend accepting the scripts as they are and noting it here; optionally compact the schema. Say if you would rather split the analyzer into modules |
+| 21 | No file over 500 lines in `project-blueprint/` | FAIL (accepted) | `scripts/analyze_project.py` 656 lines, `assets/schemas/wireframe.schema.json` 602 lines, `scripts/render_wireframe.py` 572 lines. Every Markdown file is under 250 lines (`SKILL.md` 142). Accepted as-is by the owner on 2026-10-07: the 500-line guidance applies to `SKILL.md` and the references, and keeping each script and the schema as one cohesive file is simpler than splitting them into modules | none (accepted) |
 | 22 | No TODO, FIXME, or lorem text | PASS | Search of the repo found matches only in the sample project (`AccountController.cs:14` is a deliberate TODO that the generated output refers to) and in the spec and prompt files, which discuss those words | none |
 | 23 | No secret-like strings in the repo | PASS | See row 11: only the deliberate fake sample values | none |
 | 24 | `SKILL.md` mentions no missing file | PASS | Test `test_mentioned_files_exist` and `test_all_relative_links_resolve` pass | none |
 | 25 | No script imports a non-stdlib module | PASS | See row 7 | none |
 | 26 | Repo layout matches spec section 3.3 | PASS | Every path in 3.3 exists, including this file. Differences: test files are named `test_analyze_core.py`, `test_analyze_extractors.py`, `test_render_core.py`, `test_render_full.py` instead of the three names in 3.3; extra files `CLAUDE.md`, `PROGRESS.md`, `requirements-dev.txt`, `docs/SPEC.md`, `docs/BUILD_PROMPTS.md`, `evals/fixtures/`; `docs/images/` is empty (the README uses the images in `examples/`) | none required |
-| 27 | Scripts match spec section 6 | FAIL | `analyze_project.py` has no `--format json\|md` option (6.1); the Step 4A prompt left it out. `validate_mermaid.py` reports unescaped `<`/`>` and duplicate node labels as warnings, not errors (6.3), because they do not always break parsing | either implement `--format md` (a Markdown summary) or remove it from the spec; keep the warnings and state that choice in the spec |
+| 27 | Scripts match spec section 6 | PASS | Fixed after the audit by aligning the spec with the design: `docs/SPEC.md` 6.1 no longer lists `--format json\|md` (the analyzer writes `analysis.raw.json`; the human summary is `overview.md`), and 6.3 now states that unescaped `<`/`>`, bare `end`, and duplicate node labels are non-fatal warnings while other structural problems are errors. The scripts' `--help` output and behavior match the spec text (checked by reading section 6 against the code) | none |
 
-## Fixes proposed, in order
+## Status after the fixes
 
-1. Instruction fixes (rows 3 and 6): reword the dependency-graph arrow, clarify the variants rule, tell the agent how to handle the flow file's header, and make script paths absolute. Also add a sentence to `SKILL.md` that the profile must be final before the header hash is computed (finding 4 from Step 10).
-2. `.gitignore` additions (row 11).
-3. Three analyzer tests (row 9).
-4. Check the CI run on GitHub and fix what it reports (rows 10 and 18).
-5. Decide on rows 21 and 27: accept or change.
-6. Step 15 items (rows 19 and 20), and your manual GitHub render check (row 14).
+| Rows | Outcome |
+|---|---|
+| 3, 6 | Fixed: instruction contradictions removed and script paths made absolute (`docs: fix instruction contradictions and script paths`) |
+| 9 | Fixed: three analyzer tests added (`test: add analyzer failure and determinism tests`) |
+| 11 | Fixed: `.gitignore` extended (`fix: extend gitignore for env files, keys, and release packages`) |
+| 27 | Fixed: spec aligned with the design (`docs: align spec with analyzer and validator behavior`) |
+| 21 | Accepted as-is by the owner |
+| 10, 18 | Open: waiting for the first GitHub Actions run to finish; fix whatever it reports |
+| 14, 19, 20 | Deferred to Step 15: view the diagrams on GitHub, create the release tag, date the changelog, and set the repository topics |
 
-The other Step 10 findings were not audit failures and are optional: a `--flow-out` renderer option, an exception for destructive-only screens in the primary-action rule, and per-field `inferred` flags in the schema.
+Other Step 10 findings that were not audit failures and were not applied: a `--flow-out` renderer option, per-field `inferred` flags in the profile schema, and a destructive-only-screen exception to the primary-action rule (only the confirmation-dialog exception was added).
 
 ## Not verified
 

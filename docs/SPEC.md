@@ -240,7 +240,7 @@ Everything downstream reads `blueprint/profile.json`. Define it in `assets/schem
 All scripts: Python 3.10+, standard library only, `argparse` CLI, exit code 0 on success / non-zero on failure, helpful `--help`, no network access, no writes outside the given `--out` directory, never execute code from the analyzed project.
 
 ### 6.1 `analyze_project.py`
-- **Usage:** `python analyze_project.py <project_path> --out blueprint/ [--max-files 2000] [--format json|md]`
+- **Usage:** `python analyze_project.py <project_path> --out blueprint/ [--max-files 2000]`
 - **Does:** walks the tree (skip `.git`, `node_modules`, `bin`, `obj`, `venv`, `dist`, `build`, `.next`, `Library`, `Temp`, and honor `.gitignore` if present); detects languages by extension counts; detects stack from marker files (`*.csproj`, `package.json`, `requirements.txt`, `pyproject.toml`, `pubspec.yaml`, `pom.xml`, `build.gradle`, `Cargo.toml`, `go.mod`, `ProjectSettings/` for Unity, `Dockerfile`, etc.); lists key directories with guessed roles; finds entry points; does lightweight regex extraction of routes (ASP.NET attributes, Express/Fastify, Flask/FastAPI, Next.js `app/` & `pages/`), views/screens, and model/entity classes.
 - **Output:** `blueprint/analysis.raw.json` (draft Profile subset + file stats). The agent merges and corrects it into `profile.json`.
 - **Safety:** skip files > 1 MB; cap output size; never read `.env`, `*.pem`, `*.key`, `secrets*` — list them as "sensitive files present (not read)".
@@ -252,7 +252,7 @@ All scripts: Python 3.10+, standard library only, `argparse` CLI, exit code 0 on
 
 ### 6.3 `validate_mermaid.py`
 - **Usage:** `python validate_mermaid.py <file-or-dir>`
-- **Does:** extracts ```` ```mermaid ```` blocks from `.md` files and `.mmd` files; runs structural checks (known diagram type on first line, balanced brackets/quotes, no unescaped `<`/`>` in labels where it breaks parsing, unique node IDs per diagram). If `mmdc` (mermaid-cli) is installed, additionally shell out to it for real parsing; otherwise print `INFO: mmdc not found, heuristic checks only`.
+- **Does:** extracts ```` ```mermaid ```` blocks from `.md` files and `.mmd` files; runs structural checks (known diagram type on first line, balanced brackets/quotes, no unescaped `<`/`>` in labels where it breaks parsing, unique node IDs per diagram). If `mmdc` (mermaid-cli) is installed, additionally shell out to it for real parsing; otherwise print `INFO: mmdc not found, heuristic checks only`. Unescaped `<`/`>` in labels, bare `end` nodes, and duplicate node labels are reported as non-fatal warnings by default; the other structural problems are errors.
 - **Exit code** non-zero on any error.
 
 ### 6.4 `export_sprint.py`
