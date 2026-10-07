@@ -1,5 +1,8 @@
 # Secrets
 .env
+.env.*
+*.pem
+*.key
 
 # Python
 __pycache__/
@@ -7,6 +10,9 @@ __pycache__/
 .pytest_cache/
 .venv/
 venv/
+
+# Release packages
+dist/
 
 # Generated output at repo root (examples/sample-output/blueprint is committed)
 /blueprint/
