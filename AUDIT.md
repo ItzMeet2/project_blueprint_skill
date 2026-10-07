@@ -46,7 +46,7 @@ Audit of the repository against the checklist in `docs/SPEC.md` section 14, plus
 |---|---|---|---|---|
 | 17 | README has working demo images and accurate install steps | PASS | All relative links in `README.md` resolve (checked with a script); the two demo SVGs exist. Install steps were checked against [the Claude Code skills docs](https://code.claude.com/docs/en/skills) and [the Claude.ai support article](https://support.claude.com/en/articles/12512180-using-skills-in-claude) on 2026-10-07; unverified parts are labeled in the README | recheck the install steps before release, since menu names change |
 | 18 | CI workflow passes; badges point to the right repo | PASS | The workflow parses as YAML, every command in it was run locally with exit 0, and the first GitHub run completed with the badge showing "passing" (see row 10). The badge points to `ItzMeet2/project_blueprint_skill`, the real repository; the spec names `project-blueprint-skill`, so this is a deliberate deviation | none; confirm run 2 (commit `1b38af9`) when it finishes |
-| 19 | CHANGELOG, CONTRIBUTING, issue templates present; v0.1.0 tag ready | PASS | `CHANGELOG.md` now has `## [0.1.0] - 2026-10-07`, `CONTRIBUTING.md` and both issue templates exist, the working tree was clean and `pytest -q` passed (132) before the release prep. `dist/project-blueprint-v0.1.0.zip` was built (20 files, everything under `project-blueprint/`, SHA-256 `0055e781f620583e6ecedf3aeca41744016a37096768b86cf7e70d34dd0230c6`, identical on two builds) and a script from the extracted zip ran. The tag itself has not been created; that is for the owner to run | create and push the tag (commands printed in Step 15) |
+| 19 | CHANGELOG, CONTRIBUTING, issue templates present; v0.1.0 tag ready | PASS | `CHANGELOG.md` now has `## [0.1.0] - 2026-10-07`, `CONTRIBUTING.md` and both issue templates exist, the working tree was clean and `pytest -q` passed (132). `dist/project-blueprint-v0.1.0.zip` was built (20 files, everything under `project-blueprint/`, SHA-256 `0055e781f620583e6ecedf3aeca41744016a37096768b86cf7e70d34dd0230c6`, identical on two builds). Tag `v0.1.0` created and pushed to origin | none |
 | 20 | GitHub topics set | FAIL | Not set (no step has done it; it is an action in the GitHub repository settings) | Step 15 prints the topic list; you set it on GitHub |
 
 ### Extra checks
@@ -70,8 +70,8 @@ Audit of the repository against the checklist in `docs/SPEC.md` section 14, plus
 | 11 | Fixed: `.gitignore` extended (`fix: extend gitignore for env files, keys, and release packages`) |
 | 27 | Fixed: spec aligned with the design (`docs: align spec with analyzer and validator behavior`) |
 | 21 | Accepted as-is by the owner |
-| 10, 18 | Passed: the first GitHub Actions run succeeded (badge "passing"); the second run was still queued when checked |
-| 19 | Ready: changelog dated, release zip built; the owner creates and pushes the tag |
+| 10, 18 | Passed: both GitHub Actions runs succeeded across Python 3.10, 3.11, and 3.12 (badge "passing") |
+| 19 | Complete: changelog dated, release zip built, tag `v0.1.0` created and pushed |
 | 14, 20 | Owner actions: view the diagrams on GitHub, and set the repository topics |
 
 Other Step 10 findings that were not audit failures and were not applied: a `--flow-out` renderer option, per-field `inferred` flags in the profile schema, and a destructive-only-screen exception to the primary-action rule (only the confirmation-dialog exception was added).

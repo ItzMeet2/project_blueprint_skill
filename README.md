@@ -5,7 +5,7 @@ An Agent Skill that reads a software project (a codebase, a docs folder, or just
 [![CI](https://github.com/ItzMeet2/project_blueprint_skill/actions/workflows/validate.yml/badge.svg)](https://github.com/ItzMeet2/project_blueprint_skill/actions/workflows/validate.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-> Status: version 0.1.0, not released yet. See the [changelog](CHANGELOG.md).
+> Status: version 0.1.0 released. See the [changelog](CHANGELOG.md).
 
 ## Demo
 

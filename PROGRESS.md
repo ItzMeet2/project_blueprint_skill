@@ -17,4 +17,4 @@
 - [x] Step 12: docs
 - [x] Step 13: CI
 - [x] Step 14: audit (rows 14 and 20 are owner actions; see AUDIT.md)
-- [x] Step 15 (prepared; owner pushes the tag): publish
+- [x] Step 15: publish (v0.1.0 tagged, released and pushed)
