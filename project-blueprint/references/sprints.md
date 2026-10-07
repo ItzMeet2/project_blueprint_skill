@@ -105,7 +105,7 @@ gantt
     US-004 Review a book    :us004, after us003, 5d
 ```
 
-Dependency graph (an arrow means "depends on", pointing from the prerequisite to the dependent story):
+Dependency graph (an arrow points from the prerequisite to the dependent story, meaning "must be finished before"):
 
 ```mermaid
 flowchart LR

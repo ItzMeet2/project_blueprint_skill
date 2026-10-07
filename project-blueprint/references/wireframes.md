@@ -76,12 +76,12 @@ Every element needs `"type"`. "Required" fields must be non-empty.
 
 ## 3. Design rules
 
-- **One primary action per screen.** Mark exactly one button `"primary": true`. Why: wireframes exist to settle what the user is meant to do next.
+- **One primary action per screen.** Mark exactly one button `"primary": true`. Why: wireframes exist to settle what the user is meant to do next. Exception: in a confirmation dialog for a destructive action (for example "Delete book?"), do not make the destructive button the primary one. Mark the safe choice (Cancel) as secondary and leave the destructive button clearly labeled, or mark neither as primary.
 - **Every screen is reachable** from at least one other screen through `navigates_to`. The renderer warns on stderr about any screen other than the first that has no incoming link. A warning means either a missing link or a screen that should not exist.
 - **Use real content from the profile**, never filler text: real field names from `entities`, real button names from `routes`, real screen names. Why: placeholder text hides whether the screen actually fits the product.
-- **Add empty, loading, and error variants** for any screen that loads data (section 5).
+- **Add empty and error variants** for any screen that loads data, and a loading variant only when the stack has a client-side loading state (section 5).
 - **Mobile-first** unless the project type says otherwise (`desktop` for desktop apps and admin tools; for web apps design `mobile` first and add `desktop` only if asked).
-- **Do not invent screens or fields.** If a screen is a proposal and not in the code, say so in `notes` and add an `ASSUMPTION:` to the profile.
+- **Do not invent screens or fields.** If a screen is a proposal and not in the code, say so in `notes` and add an `ASSUMPTION:` to the profile. State variants (section 5) are the allowed kind of proposal: they may be added when they are labeled as proposals.
 - Keep labels short: long text is shortened with an ellipsis in the drawing.
 
 ## 4. Deriving screens from the profile
@@ -102,6 +102,8 @@ For a screen `books-index` that loads data, add separate screens named with a do
 
 Rules: the variant `id` is the base id plus `--empty`, `--loading`, or `--error`; use the same `viewport`; link each variant from the base screen with a `navigates_to` entry whose `element` describes the condition (for example `"No books yet"`). Why: the double hyphen is accepted by the renderer and the schema for exactly this purpose, and the link keeps the screen-flow diagram connected.
 
+Variants are proposals, so label each one in `notes` (for example "Proposed state; the current code has no error handling") and keep it consistent with the "do not invent screens" rule. Add `--loading` only when the stack has a client-side loading state, such as a single-page app that fetches data after the page opens. Server-rendered multi-page apps (for example ASP.NET MVC with Razor views) have no loading state, so give them `--empty` and `--error` only.
+
 ## 6. Running the renderer
 
 ```
@@ -111,7 +113,7 @@ python scripts/render_wireframe.py blueprint/wireframes/spec.json --out blueprin
 - Writes one `<screen-id>.svg` per screen, an `index.html` gallery (with `--html`), and `screen-flow.md` next to them.
 - `--theme dark` switches the SVG files to the dark theme. The gallery always contains both themes.
 - Output is deterministic: identical spec, identical bytes.
-- **Move `screen-flow.md` to `blueprint/diagrams/screen-flow.md`** so it follows the output contract in `SKILL.md`. If that file already exists, do not overwrite it; write the new one with a `-v2` suffix.
+- **Move `screen-flow.md` to `blueprint/diagrams/screen-flow.md`** so it follows the output contract in `SKILL.md`, and put the standard generated-by header (defined in the output contract) on its first line, because the renderer does not write one. If the target file already exists, do not overwrite it; write the new one with a `-v2` suffix.
 - Validate the flow diagram with `scripts/validate_mermaid.py` (see `diagrams.md`).
 - Exit code is non-zero if the spec is invalid; nothing is written in that case.
 - Save the spec as `blueprint/wireframes/spec.json` so the user can rerender after editing.

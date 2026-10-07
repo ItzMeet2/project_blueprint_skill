@@ -23,7 +23,7 @@ Run this in Phase 4, after every requested artifact is written and before you re
 
 - [ ] The spec passes `scripts/render_wireframe.py` with exit code 0, and the SVG files exist.
 - [ ] Every screen except the first is reachable from another screen (no "no incoming navigation" warnings, or each remaining one is explained).
-- [ ] Each screen has at most one primary action; data-loading screens have empty, loading, and error variants.
+- [ ] Each screen has at most one primary action (see the dialog exception in `wireframes.md`); data-loading screens have empty and error variants, labeled as proposals, plus a loading variant only if the stack has a client-side loading state.
 - [ ] Labels use real content from the profile.
 - [ ] `screen-flow.md` was moved to `blueprint/diagrams/screen-flow.md`.
 
