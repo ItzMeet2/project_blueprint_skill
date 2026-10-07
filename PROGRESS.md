@@ -16,5 +16,5 @@
 - [x] Step 11: evals
 - [x] Step 12: docs
 - [x] Step 13: CI
-- [ ] Step 14: audit
+- [ ] Step 14: audit (AUDIT.md written; fixes pending approval)
 - [ ] Step 15: publish
