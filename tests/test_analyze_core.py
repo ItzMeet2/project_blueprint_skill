@@ -108,3 +108,24 @@ def test_help_works():
     proc = run("--help")
     assert proc.returncode == 0
     assert "--max-files" in proc.stdout
+
+
+def test_max_files_zero_fails(tmp_path):
+    proc = run(SAMPLE, "--out", tmp_path / "out", "--max-files", "0")
+    assert proc.returncode == 2
+    assert "--max-files must be at least 1" in proc.stderr
+    assert not (tmp_path / "out").exists()
+
+
+def test_file_as_project_path_fails(tmp_path):
+    proc = run(SAMPLE / "README.md", "--out", tmp_path / "out")
+    assert proc.returncode == 2
+    assert "not a directory" in proc.stderr
+    assert not (tmp_path / "out").exists()
+
+
+def test_analysis_deterministic(tmp_path):
+    assert run(SAMPLE, "--out", tmp_path / "a").returncode == 0
+    assert run(SAMPLE, "--out", tmp_path / "b").returncode == 0
+    first = (tmp_path / "a" / "analysis.raw.json").read_bytes()
+    assert first == (tmp_path / "b" / "analysis.raw.json").read_bytes()
