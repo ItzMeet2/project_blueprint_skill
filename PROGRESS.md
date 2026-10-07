@@ -11,7 +11,7 @@
 - [x] Step 6: mermaid validator
 - [x] Step 7: sprint exporter
 - [x] Step 8A-8C: references
-- [ ] Step 9: SKILL.md
+- [x] Step 9: SKILL.md
 - [ ] Step 10: sample output
 - [ ] Step 11: evals
 - [ ] Step 12: docs
