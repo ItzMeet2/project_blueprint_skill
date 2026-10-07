@@ -13,7 +13,7 @@
 - [x] Step 8A-8C: references
 - [x] Step 9: SKILL.md
 - [x] Step 10: sample output
-- [ ] Step 11: evals
+- [x] Step 11: evals
 - [ ] Step 12: docs
 - [ ] Step 13: CI
 - [ ] Step 14: audit

@@ -1,0 +1,114 @@
+{
+  "skill_name": "project-blueprint",
+  "evals": [
+    {
+      "id": 1,
+      "name": "Analyze a .NET MVC project and make wireframes",
+      "prompt": "Here's my ASP.NET MVC project. Document it and make wireframes for the main screens.",
+      "files": ["examples/sample-dotnet-mvc"],
+      "should_trigger": true,
+      "expectations": [
+        "Runs or emulates analyze_project.py and writes blueprint/profile.json that follows the profile schema",
+        "Wireframe spec screen ids match the screens found in Views/ (for example account-login, books-index) and the shared layout is not treated as a screen",
+        "Renders SVG files with render_wireframe.py and they open without errors",
+        "Labels inferences as ASSUMPTION: or inferred, and does not read or copy anything from the .env file",
+        "Ends with a short summary and list of files instead of pasting the files into chat"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Idea only, interview path",
+      "prompt": "I want to build an app that helps freelancers track unpaid invoices and send reminders. I have no code yet. Help me plan it.",
+      "files": [],
+      "should_trigger": true,
+      "expectations": [
+        "Does not try to run the analyzer on a codebase (there is none)",
+        "Asks a short interview of at most 5 questions in one message, about users, platform, must-have features, constraints and data or integrations",
+        "After the answers, or on stated defaults, writes blueprint/profile.json with project.status idea and confidence.overall low",
+        "Every detail that came from the interview or from guessing is marked ASSUMPTION:",
+        "Does not invent technical details such as a framework or database without labeling them as assumptions"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Wireframes for a mobile app",
+      "prompt": "Make wireframes for a mobile habit tracker app: login, a daily checklist, a streak screen, and settings.",
+      "files": [],
+      "should_trigger": true,
+      "expectations": [
+        "Writes a wireframe spec JSON with screens for login, the daily checklist, the streak view and settings, using the mobile viewport",
+        "Every screen except the first is reachable through navigates_to, and each screen has at most one primary button",
+        "Renders SVGs with render_wireframe.py and also produces a screen-flow Mermaid diagram that passes validate_mermaid.py",
+        "Uses realistic labels (habit names, streak counts) and no filler text",
+        "Adds empty or error variants for the screen that loads data, named with the double-hyphen pattern such as daily-checklist--empty"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Flowchart of the auth flow",
+      "prompt": "Draw a flowchart of the sign-in and registration flow of this app.",
+      "files": ["examples/sample-dotnet-mvc"],
+      "should_trigger": true,
+      "expectations": [
+        "Bases the flow on the real routes and screens (POST /account/login, POST /account/register, account-login, account-register)",
+        "Outputs a Mermaid flowchart in a fenced block and validate_mermaid.py exits 0",
+        "Notices or states that the login handler does not verify credentials, or labels the credential check as an assumption",
+        "Node ids and names come from the profile and are not renamed"
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Three-sprint plan with dependencies",
+      "prompt": "Break this project into a 3-sprint plan. I work alone. Include estimates and dependencies.",
+      "files": ["examples/sample-dotnet-mvc"],
+      "should_trigger": true,
+      "expectations": [
+        "Writes blueprint/sprints/sprint-plan.md with the required table header (ID, Epic, Story, Points, Priority, Depends On, Sprint, Acceptance Criteria)",
+        "Uses only the points 1, 2, 3, 5 or 8, and no story depends on a story in a later sprint",
+        "Sprint 1 is a thin vertical slice that can be demonstrated end to end",
+        "export_sprint.py exits 0 and produces the CSV and JSON files",
+        "States the capacity assumption for a solo developer instead of asking about team size"
+      ]
+    },
+    {
+      "id": 6,
+      "name": "PRD from a README",
+      "prompt": "Turn this README into a PRD I can show my team.",
+      "files": ["evals/fixtures/trailmix-README.md"],
+      "should_trigger": true,
+      "expectations": [
+        "Writes blueprint/requirements/prd.md with the sections problem, goals and non-goals, personas, scope (MVP vs later), functional requirements, non-functional requirements, success metrics, open questions and risks",
+        "Functional requirements are numbered FR-001, FR-002 and so on, each with a priority",
+        "Requirements trace to the README: the planned features appear, and the not-planned items (maps, payments, native apps) are in non-goals or later scope",
+        "Does not invent numeric success metrics as facts; they are marked ASSUMPTION: or listed as open questions",
+        "Also writes blueprint/profile.json with status idea and starts the markdown file with the generated-by header"
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Vague prompt that should still trigger",
+      "prompt": "I have a rough idea for an app but I'm stuck. Help me figure out what to build first.",
+      "files": [],
+      "should_trigger": true,
+      "expectations": [
+        "Recognizes this as a planning request and uses the project-blueprint workflow",
+        "Asks at most 3 clarifying questions, or 5 in a single idea-only interview message, and does not interrogate the user over several turns",
+        "Works toward an MVP scope (must-have features, a first sprint or slice) rather than generic advice",
+        "Marks anything it guessed as ASSUMPTION: and offers the other artifacts (wireframes, user stories, sprint plan) as next steps"
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Negative case: fix a bug",
+      "prompt": "Fix this null reference bug. In BooksController.Details, `return View(_db.Books.Find(id));` throws a NullReferenceException in the view when the id does not exist. What should I change?",
+      "files": [],
+      "should_trigger": false,
+      "expectations": [
+        "Does not use the project-blueprint skill and does not create a blueprint/ folder",
+        "Does not run analyze_project.py, render_wireframe.py, validate_mermaid.py or export_sprint.py",
+        "Explains the cause (Find returns null for a missing id) and gives a concrete code fix such as returning NotFound() when the book is null",
+        "Keeps the answer focused on the bug and does not produce wireframes, diagrams, stories or sprint plans"
+      ]
+    }
+  ]
+}
